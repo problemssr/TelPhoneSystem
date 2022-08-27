@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% block css %}
+    <title>开发人员管理</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>手机数据更新</h1>
+        <div style="margin: 15px 0;">
+            <a href="/phone/delete/">
+                <button class="btn btn-danger">删除所有设备</button>
+            </a>
+        </div>
+
+        <div style="display: flex;">
+            <div class="panel panel-default" style="flex: 50%;margin-right: 5px;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">导入手机数据</h3>
+                </div>
+                <div class="panel-body">
+                    <form method="post" enctype="multipart/form-data" class="form-horizontal">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">手机资料</label>
+                            <div class="col-sm-9">
+                                <input type="file" name="phone_data">
+                            </div>
+                        </div>
+{#                        <div class="form-group">#}
+{#                            <label class="col-sm-3 control-label">序列号清单</label>#}
+{#                            <div class="col-sm-9">#}
+{#                                <input type="file" name="list_data">#}
+{#                            </div>#}
+{#                        </div>#}
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-10">
+                                <button type="submit" class="btn btn-primary">提 交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-default" style="flex: 50%;margin-left: 5px;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">导出数据</h3>
+                </div>
+                <div class="panel-body">
+                    <span class="col-md-2" style="display: inline-block;font-weight: bold;">导出</span>
+                    <a href="/phone/2/download/" class="col-md-10" style="display: inline-block;margin-left: -20px;">
+                        <button class="btn btn-primary">导出手机最新数据</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3>使用说明</h3>
+            <h4>手机详细信息表中购买日期格式 例如：2022-08-12，excel不可以单独有0这个数字</h4>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        const con = document.querySelectorAll('.container');
+        con[0].remove()
+        const h1 = con[1].querySelector('h1')
+        h1.onclick = function () {
+            location.assign(location.protocol + "//" + location.host + "/" + "admin/list/")
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block css %}
+    <title>借出设备登记</title>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}">
+    <style>
+        @media screen and (max-width: 1280px) {
+            .container {
+                width: 800px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-top: 10px;">
+        <table class="table table-bordered" style="font-size: medium;">
+            <thead>
+            <tr>
+                <th>信息</th>
+                <th>详情</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>设备编号</td>
+                <td>{{ form_phone.phone_id }}</td>
+            </tr>
+            <tr>
+                <td>设备品牌</td>
+                <td>{{ form_phone.phone_brand }}</td>
+            </tr>
+            <tr>
+                <td>设备类型</td>
+                <td>{{ form_phone.phone_name }}</td>
+            </tr>
+            <tr>
+                <td>采购来源</td>
+                <td>{{ form_phone.phone_source }}</td>
+            </tr>
+            <tr>
+                <td>IMEI号</td>
+                <td>{{ form_phone.phone_IMEI }}</td>
+            </tr>
+            <tr>
+                <td>姓名登记</td>
+                <td>
+                    {{ form_phone.user.people_name }}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 200px;">借出-归还时间</td>
+                <td>
+                    {% if form_phone.user.borrow_time %}
+                        {{ form_phone.user.borrow_time|date:'Y.m.d' }}——{{ form_phone.user.restore_time|date:'Y.m.d' }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>借出用途</td>
+                <td>
+                    {{ form_phone.user.borrow_usage }}
+                </td>
+            </tr>
+            <tr>
+                <td>操作</td>
+                <td>
+                    <a href="/admin/restore/{{ form_phone.phone_id }}/delete/" style="margin-left: 30px;">
+                        <button>确定归还</button>
+                    </a>
+                    <a href="/admin/restore/" style="margin-left: 30px;">
+                        <button>取消</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js' %}"></script>
+    <script>
+        var h1 = document.querySelector('h1');
+        h1.addEventListener('click', function () {
+            location.assign(location.protocol + "//" + location.host + "/" + "admin/restore/")
+        })
+        $(function () {
+            $('#dt').datepicker({
+                format: 'yyyy-mm-dd',
+                startDate: '8',
+                language: 'zh-CN',
+                autoclose: true
+            }).datepicker("setDate", 'now')  // 设置默认日期
+        })
+    </script>
+{% endblock %}

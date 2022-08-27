@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block css %}
+    <title>管理员主界面</title>
+    <style>
+        @media screen and (max-width: 1280px) {
+            .container {
+                width: 800px;
+            }
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="panel panel-info" style="margin-top: 10px;font-size: large;">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="display: inline-block;">功能列表</h3>
+                <a href="/logout/">
+                    <button class="btn btn-default btn-sm" style="float: right;">
+                        注 销
+                    </button>
+                </a>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>功能选项</th>
+                    </tr>
+                    </thead>
+                    <tbody style="font-size:medium;">
+                    <tr>
+                        <th scope="row">1</th>
+                        <td><a href="/admin/borrow/" style="text-decoration: none;">借出登记</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td><a href="/admin/restore/" style="text-decoration: none;">归还登记</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td><a href="/admin/add/" style="text-decoration: none;">新增设备</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td><a href="/admin/edit/" style="text-decoration: none;">编辑设备</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td><a href="/admin/histroy/" style="text-decoration: none;">借出设备历史记录</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td><a href="/admin/manage/" style="text-decoration: none;">开发人员管理</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

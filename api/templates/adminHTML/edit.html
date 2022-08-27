@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% block css %}
+    <title>编辑设备信息</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h4 style="float:left;">手机列表</h4>
+                <div style="float: right;width: 300px;padding-top: 2px;">
+                    <form method="get">
+                        <div class="input-group">
+                            <input name="search" type="text" class="form-control" placeholder="搜素设备品牌"
+                                   value="{{ search_data }}">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">搜素</button>
+                        </span>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>设备类型</th>
+                    <th>设备品牌</th>
+                    <th style="width: 50px;">编号</th>
+                    <th>姓名登记</th>
+                    <th>借出-归还时间</th>
+                    <th>借用用途</th>
+                    <th>采购来源</th>
+                    <th>IMEI号</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in form %}
+                    <tr>
+                        <td>{{ item.phone_brand }}</td>
+                        <td><a href="/phone/{{ item.phone_id }}/detail/"
+                               style="text-decoration: none;">{{ item.phone_name }}</a></td>
+                        <td style="text-align: center">{{ item.phone_id }}</td>
+                        <td class="ban">{{ item.user.people_name }}</td>
+                        <td>
+                            {% if item.user.borrow_time %}
+                                {{ item.user.borrow_time|date:'Y.m.d' }}——{{ item.user.restore_time|date:'Y.m.d' }}
+                            {% endif %}
+                        </td>
+                        <td>{{ item.user.borrow_usage }}</td>
+                        <td>{{ item.phone_source }}</td>
+                        <td>{{ item.phone_IMEI }}</td>
+                        <td>
+                            <a href="/admin/edit/{{ item.phone_id }}/detail/"
+                               style="text-decoration: none;color: white">
+                                <button class="btn btn-sm btn-primary">
+                                    编辑设备
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <ul class="pagination">
+            {{ page_string }}
+        </ul>
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        var h1 = document.querySelector('h1');
+        h1.addEventListener('click', function () {
+            location.assign(location.protocol + "//" + location.host + "/" + "admin/list/")
+        })
+    </script>
+{% endblock %}

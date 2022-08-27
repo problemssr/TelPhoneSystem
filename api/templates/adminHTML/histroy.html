@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% block css %}
+    <title>借用历史记录</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h4 style="float:left;">借用历史记录</h4>
+                <div style="float: right;width: 300px;padding-top: 2px;">
+                    <form method="get">
+                        <div class="input-group">
+                            <input name="search" type="text" class="form-control" placeholder="搜素设备名称"
+                                   value="{{ search_data }}">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">搜素</button>
+                        </span>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>设备类型</th>
+                    <th>设备品牌</th>
+                    <th style="width: 50px;">编号</th>
+                    <th>姓名登记</th>
+                    <th>借出-归还时间</th>
+                    <th>借用用途</th>
+                    <th>采购来源</th>
+                    <th>IMEI号</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in form %}
+                    <tr>
+                        <td>{{ item.history_brand }}</td>
+                        <td>{{ item.history_name }}</td>
+                        <td style="text-align: center">{{ item.history_phone_id }}</td>
+                        <td class="ban">{{ item.history_username }}</td>
+                        <td>
+                            {% if item.history_borrow_time %}
+                                {{ item.history_borrow_time|date:'Y.m.d' }}——{{ item.history_restore_time|date:'Y.m.d' }}
+                            {% endif %}
+                        </td>
+                        <td>{{ item.history_usage }}</td>
+                        <td>{{ item.history_source }}</td>
+                        <td>{{ item.history_IMEI }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <ul class="pagination">
+            {{ page_string }}
+        </ul>
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        const h1 = document.querySelector('h1');
+        h1.addEventListener('click', function () {
+            location.assign(location.protocol + "//" + location.host + "/" + "admin/list/")
+        })
+
+    </script>
+{% endblock %}

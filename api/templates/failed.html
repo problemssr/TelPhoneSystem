@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下载失败</title>
+</head>
+<body>
+<h1>下载失败，3秒钟返回首页</h1>
+<script>
+    var h1 = document.querySelector("h1");
+    var time = 3;
+    setInterval(function () {
+        var url="";
+        if (time === 1) {
+            url = location.protocol + "//" + location.host + "/phone/list/"
+            location.assign(url)
+        } else {
+            h1.innerText = "下载失败，" + --time + "秒钟返回首页";
+        }
+    }, 1000)
+</script>
+</body>
+</html>

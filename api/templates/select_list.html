@@ -1,0 +1,252 @@
+{% extends 'layout.html' %}
+{% block css %}
+    <title>手机筛选</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+            <th style="width: 150px;">添加条件</th>
+            <th>具体条件</th>
+            </thead>
+            <tbody>
+            <form method="post" class="form-horizontal" novalidate>
+                {% csrf_token %}
+                <tr>
+                    <td>品牌</td>
+                    <td>
+                        <select name="brand" class="form-control">
+                            {% for b in brand %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>手机\平板</td>
+                    <td>
+                        <select name="phone_type" class="form-control">
+                            {% for b in phone_type %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>运营商制式</td>
+                    <td>
+                        <select name="CVT" class="form-control">
+                            {% for b in CVT %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>主屏尺寸</td>
+                    <td>
+                        <select name="screen_size" class="form-control">
+                            {% for b in screen_size %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>主屏分辨率</td>
+                    <td>
+                        <select name="screen_resolution" class="form-control">
+                            {% for b in screen_resolution %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>屏幕像素密度</td>
+                    <td>
+                        <select name="screen_pixel" class="form-control">
+                            {% for b in screen_pixel %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>NFC</td>
+                    <td>
+                        <select name="NFC" class="form-control">
+                            {% for b in NFC %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>蓝牙4.0</td>
+                    <td>
+                        <select name="Bluetooth40" class="form-control">
+                            {% for b in Bluetooth40 %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>OTG</td>
+                    <td>
+                        <select name="OTG" class="form-control">
+                            {% for b in OTG %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>红外遥控</td>
+                    <td>
+                        <select name="IR" class="form-control">
+                            {% for b in IR %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>MHL</td>
+                    <td>
+                        <select name="MHL" class="form-control">
+                            {% for b in MHL %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>蓝牙</td>
+                    <td>
+                        <select name="Bluetooth" class="form-control">
+                            {% for b in Bluetooth %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>HCE手机</td>
+                    <td>
+                        <select name="HCE" class="form-control">
+                            {% for b in HCE %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>操作系统</td>
+                    <td>
+                        <select name="OS" class="form-control">
+                            {% for b in OS %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>CPU型号</td>
+                    <td>
+                        <select name="CPU" class="form-control">
+                            {% for b in CPU %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>SIM卡类型</td>
+                    <td>
+                        <select name="SIM" class="form-control">
+                            {% for b in SIM %}
+                                {% if b == '' %}
+                                    <option value="{{ b }}">全部</option>
+                                {% else %}
+                                    <option value="{{ b }}">{{ b }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="btn btn-primary">提 交</button>
+                        <button type="text" class="btn btn-default" style="float: right;"><a href="/phone/list/" style="color: black">返回首页</a></button>
+
+                    </td>
+                </tr>
+            </form>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

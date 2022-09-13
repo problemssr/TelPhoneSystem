@@ -18,6 +18,12 @@
                         <li><a href="/phone/select/">筛选手机</a></li>
                         <li><a href="/phone/1/download/">下载手机数据库</a></li>
                     </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=ww5a01e18504874599&agentid=1000008&redirect_uri=http%3A%2F%2F127.0.0.1%3A4000%2Fphone%2FborrowInfo%2F&state=1515">用户登录</a>
+                        </li>
+                    </ul>
+
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
@@ -78,4 +84,12 @@
         </ul>
 
     </div>
+{% endblock %}
+{% block js %}
+    <script>
+        const h1 = document.querySelector('h1');
+        h1.addEventListener('click', function () {
+            location.assign(location.protocol + "//" + location.host + "/" + "phone/list/")
+        })
+    </script>
 {% endblock %}

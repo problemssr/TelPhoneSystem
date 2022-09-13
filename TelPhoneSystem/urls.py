@@ -21,6 +21,7 @@ from api import views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('phone/list/', views.phone_list),
+    path('phone/borrowInfo/', views.user_borrow),
     path('phone/<int:nid>/detail/', views.phone_detail),
     path('phone/instructions/', views.phone_instructions),
     path('phone/monthList/', views.one_month_list),
@@ -32,11 +33,11 @@ urlpatterns = [
     path('admin/list/', views.admin_list),
 
     path('admin/borrow/', views.admin_borrow),
-    path('admin/borrow/<int:nid>/detail/', views.admin_borrow_detail),
+    path('admin/borrow/<int:nid>/detail/<int:user>/', views.admin_borrow_detail),
 
     path('admin/restore/', views.admin_restore),
-    path('admin/restore/<int:nid>/detail/', views.admin_restore_detail),
-    path('admin/restore/<int:nid>/delete/', views.delete_restore_detail),
+    path('admin/restore/<int:nid>/detail/<int:user>/', views.admin_restore_detail),
+    path('admin/restore/<int:nid>/delete/<int:user>/', views.delete_restore_detail),
 
     path('admin/add/', views.admin_add),
     path('admin/edit/', views.admin_edit),

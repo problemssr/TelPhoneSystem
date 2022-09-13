@@ -40,8 +40,11 @@
                 {% for item in form %}
                     <tr>
                         <td>{{ item.phone_brand }}</td>
-                        <td><a href="/phone/{{ item.phone_id }}/detail/"
-                               style="text-decoration: none;">{{ item.phone_name }}</a></td>
+                        <td>
+                            <a href="/phone/{{ item.phone_id }}/detail/" style="text-decoration: none;">
+                                {{ item.phone_name }}
+                            </a>
+                        </td>
                         <td style="text-align: center">{{ item.phone_id }}</td>
                         <td class="ban">{{ item.user.people_name }}</td>
                         <td>
@@ -53,9 +56,8 @@
                         <td>{{ item.phone_source }}</td>
                         <td>{{ item.phone_IMEI }}</td>
                         <td>
-                            <a href="/admin/restore/{{ item.phone_id }}/detail/"
-                               style="text-decoration: none;color: white">
-                                <button class="btn btn-sm btn-success">
+                            <a href="/admin/restore/{{ item.phone_id }}/detail/{{ 0 }}/" style="text-decoration: none;color: white">
+                                <button class="btn btn-sm btn-success" id="reBan">
                                     归还登记
                                 </button>
                             </a>
@@ -75,9 +77,18 @@
 
 {% block js %}
     <script>
-        var h1 = document.querySelector('h1');
+        const h1 = document.querySelector('h1');
         h1.addEventListener('click', function () {
             location.assign(location.protocol + "//" + location.host + "/" + "admin/list/")
         })
+
+        const bans = document.querySelectorAll('.ban');
+        const reBan = document.querySelectorAll('#reBan');
+        for (const ban in bans) {
+            if (bans[ban].innerHTML === "" && bans[ban].innerHTML !== undefined) {
+                //归还
+                reBan[ban].setAttribute('disabled', 'true');
+            }
+        }
     </script>
 {% endblock %}

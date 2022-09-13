@@ -38,6 +38,29 @@ def phone_list(request):
     return render(request, 'phone_list.html', context)
 
 
+def user_borrow(request):
+    # 搜索----start
+    data_dict = {}
+    search_data = request.GET.get('search', "")
+    if search_data:
+        data_dict = {"phone_brand__contains": search_data}
+    # 搜索----end
+
+    # 所有数据
+    data = models.phone_info.objects.filter(**data_dict)
+    count = models.phone_info.objects.count()
+    page_size = request.GET.get("page_size", 10)
+    # 分页
+    page_project = Pagenation(request, data, page_size)
+    context = {
+        "title": "联迪移动支付实验室设备一览表",
+        "count": "设备总数：" + str(count) + "台",
+        "form": page_project.page_queryset,  # 分完页的数据
+        "page_string": page_project.html()  # 生成页码
+    }
+    return render(request, 'user_borrow.html', context)
+
+
 """直接去首页"""
 
 
@@ -360,15 +383,22 @@ def admin_borrow(request):
     return render(request, 'adminHTML/borrow.html', context)
 
 
-def admin_borrow_detail(request, nid):
+def admin_borrow_detail(request, nid, user):
     data = models.phone_info.objects.filter(phone_id=nid).first()
+    if user:
+        title = "用户借用登记"
+    else:
+        title = "借出设备登记"
     context = {
-        "title": "借出设备登记",
+        "title": title,
         "form_phone": data,
     }
     # print(data.user.people_name)
     if request.method == "GET":
-        return render(request, 'adminHTML/borrow_detail.html', context)
+        if user:
+            return render(request, 'userHTML/borrow_detail.html', context)
+        else:
+            return render(request, 'adminHTML/borrow_detail.html', context)
     else:
         people_name = request.POST.get('borrow_name')
         restore_time = request.POST.get('restore_time')
@@ -392,7 +422,10 @@ def admin_borrow_detail(request, nid):
                                              history_borrow_time=datetime.datetime.now().strftime("%Y-%m-%d"),
                                              history_restore_time=restore_time,
                                              history_usage=borrow_usage)
-        return redirect('/admin/borrow/')
+        if user:
+            return redirect('/phone/borrowInfo/')
+        else:
+            return redirect('/admin/borrow/')
 
 
 """归还登记"""
@@ -421,20 +454,29 @@ def admin_restore(request):  # 搜索----start
     return render(request, 'adminHTML/restore.html', context)
 
 
-def admin_restore_detail(request, nid):
+def admin_restore_detail(request, nid, user):
     data = models.phone_info.objects.filter(phone_id=nid).first()
-
+    if user:
+        title = "用户归还设备"
+    else:
+        title = "确定归还设备"
     context = {
-        "title": "确定归还设备",
+        "title": title,
         "form_phone": data,
     }
-    return render(request, 'adminHTML/restore_detail.html', context)
+    if user:
+        return render(request, 'userHTML/restore_detail.html', context)
+    else:
+        return render(request, 'adminHTML/restore_detail.html', context)
 
 
-def delete_restore_detail(request, nid):
+def delete_restore_detail(request, nid, user):
     """删除用户表记录"""
     models.borrow_info.objects.filter(phone=nid).delete()
-    return redirect('/admin/restore/')
+    if user:
+        return redirect('/phone/borrowInfo/')
+    else:
+        return redirect('/admin/restore/')
 
 
 class PhoneAddModelForm(forms.ModelForm):

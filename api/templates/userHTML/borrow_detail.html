@@ -1,0 +1,126 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block css %}
+    <title>借出设备登记</title>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}">
+    <style>
+        @media screen and (max-width: 1280px) {
+            .container {
+                width: 800px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-top: 10px;">
+        <form method="post" class="form-horizontal" novalidate onsubmit="return mySubmit(this)">
+            {% csrf_token %}
+            <table class="table table-bordered" style="font-size: medium;">
+                <thead>
+                <tr>
+                    <th>信息</th>
+                    <th>详情</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>设备编号</td>
+                    <td>{{ form_phone.phone_id }}</td>
+                </tr>
+                <tr>
+                    <td>设备品牌</td>
+                    <td>{{ form_phone.phone_brand }}</td>
+                </tr>
+                <tr>
+                    <td>设备类型</td>
+                    <td>{{ form_phone.phone_name }}</td>
+                </tr>
+                <tr>
+                    <td>采购来源</td>
+                    <td>{{ form_phone.phone_source }}</td>
+                </tr>
+                <tr>
+                    <td>IMEI号</td>
+                    <td>{{ form_phone.phone_IMEI }}</td>
+                </tr>
+                <tr>
+                    <td>姓名登记</td>
+                    <td id="required">
+                        <input id="inp" class="form-control" type="text" name="borrow_name" placeholder="姓名登记">
+                    </td>
+                </tr>
+                <tr>
+                    <td>归还时间</td>
+                    <td>
+                        <input id="dt" autocomplete="false" type="text" class="form-control"
+                               placeholder="归还时间" name="restore_time">
+                    </td>
+                </tr>
+                <tr>
+                    <td>借出用途</td>
+                    <td>
+                        <input class="form-control" type="text" name="borrow_usage" placeholder="借出用途">
+                    </td>
+                </tr>
+                <tr>
+                    <td>操作</td>
+                    <td style="text-align: left !important;">
+                        <button value="{{ form_phone.phone_id }}" name="phone" type="submit" id="sucbtn">
+                            确定借出
+                        </button>
+                        <button style="margin-left: 30px;">
+                            <a href="/phone/borrowInfo/">
+                                取消
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js' %}"></script>
+    <script>
+        const h1 = document.querySelector('h1');
+        h1.addEventListener('click', function () {
+            location.assign(location.protocol + "//" + location.host + "/" + "phone/borrowInfo/")
+        })
+        $(function () {
+            $('#dt').datepicker({
+                format: 'yyyy-mm-dd',
+                startDate: '8',
+                language: 'zh-CN',
+                autoclose: true
+            }).datepicker("setDate", 'now')  // 设置默认日期
+        })
+        const rtd = document.querySelector('#required');
+
+        function mySubmit(form) {
+            let formData = new FormData(form);
+            let name = formData.get('borrow_name');
+            const reg = new RegExp("^[0-9]*$");
+            if (name !== "" && !reg.test(name)) {
+                if (rtd.children[1] !== undefined) {
+                    rtd.removeChild(rtd.children[1]);
+                }
+                return true;
+            } else {
+                if (rtd.children[1] === undefined) {
+                    const spane = document.createElement('span');
+                    spane.innerHTML = "该字段必填且不是数字";
+                    spane.style.fontSize = "16px";
+                    spane.style.color = "red";
+                    rtd.appendChild(spane);
+                }
+                return false;
+            }
+        }
+
+
+    </script>
+{% endblock %}
